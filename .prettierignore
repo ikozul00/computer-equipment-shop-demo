@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+.next
+coverage
+.vscode
+.idea
+*.lock
+pnpm-lock.yaml
+package-lock.json
+*.min.js
+.env

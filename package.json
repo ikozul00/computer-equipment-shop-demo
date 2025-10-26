@@ -11,6 +11,14 @@
     "@types/react": "19.2.2",
     "eslint": "^9.38.0",
     "eslint-config-next": "^16.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.6.2",
+    "prisma": "^6.18.0",
     "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "@prisma/client": "^6.18.0",
+    "next-auth": "^4.24.11"
   }
 }
