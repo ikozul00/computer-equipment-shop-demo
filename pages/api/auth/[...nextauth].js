@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+import prisma from "../../../lib/prisma";
 
 export default NextAuth({
     providers: [
@@ -10,9 +11,32 @@ export default NextAuth({
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async signIn({ user, account, profile }) {
-            console.log('Sign In callback', { user, account, profile });
-            return true;
+        async signIn({ user, profile }) {
+            if (!user || !profile || !profile.email_verified) {
+                return false;
+            }
+            const baseURl = process.env.BASE_URL || "http://localhost:3000";
+            const res = await fetch(`${baseURl}/api/users/find?email=${encodeURIComponent(profile.email)}`);
+            if (res.ok) {
+                const data = await res.json();
+                if (data.exists) {
+                    return true;
+                }
+                const userData = await fetch(`${baseURl}/api/users/create`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: user.name,
+                        email: profile.email
+                    })
+                });
+                if (userData.status === 201) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 });
