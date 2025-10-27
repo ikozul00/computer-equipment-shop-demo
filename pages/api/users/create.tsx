@@ -89,7 +89,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 email: email.toLowerCase()
             }
         })
-        console.log(user);
         if (user) {
             createOrders(user.id).forEach(async (order) => {
                 await prisma.order.create(order);

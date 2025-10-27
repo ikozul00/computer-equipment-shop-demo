@@ -1,5 +1,53 @@
-const OrdersPage = () => {
-    return <div>Orders Page</div>;
+import { GetServerSideProps } from "next";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { OrderType } from "../../src/types";
+import { OrderComponent } from "./components/OrderComponent";
+
+interface OrdersPageProps {
+    orders: OrderType[];
+}
+
+const OrdersPage = ({ orders }: OrdersPageProps) => {
+    return (
+        <>
+            <p>Orders</p>
+            {orders && orders.length > 0 && (
+                <div>
+                    {orders.map(order => {
+                        return <OrderComponent key={order.id} order={order} />
+                    })}
+                </div>
+            )}
+        </>
+    );
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+    const session = await getServerSession(ctx.req, ctx.res, authOptions);
+    const baseURL = process.env.BASE_URL || "http://localhost:3000";
+
+    if (!session?.user) {
+        return {
+            redirect: {
+                destination: "/", // redirect to homepage
+                permanent: false,
+            },
+        };
+    }
+
+    try {
+        const res = await fetch(`${baseURL}/api/orders/list`, {
+            headers: {
+                cookie: ctx.req.headers.cookie ?? "",
+            }
+        });
+        const ordersData = await res.json();
+        return { props: { orders: ordersData?.orders ?? [] } };
+    } catch (error) {
+        return { props: { orders: [] } };
+    }
+
 }
 
 export default OrdersPage;
