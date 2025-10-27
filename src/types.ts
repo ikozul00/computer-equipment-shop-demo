@@ -3,12 +3,13 @@ export type ProductType = {
     name: string,
     price: number,
     image?: string,
+    quantity: number,
     amount: number
 }
 
 export type OrderType = {
     id: number,
-    status: string,
+    status: "success" | "pending" | "failed",
     totalPrice: number,
     createdAt: string,
     updatedAt: string | null,

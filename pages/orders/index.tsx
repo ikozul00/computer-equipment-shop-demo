@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { OrderType } from "../../src/types";
 import { OrderComponent } from "./components/OrderComponent";
+import { Orders } from "./components/Orders";
 
 interface OrdersPageProps {
     orders: OrderType[];
@@ -10,16 +11,7 @@ interface OrdersPageProps {
 
 const OrdersPage = ({ orders }: OrdersPageProps) => {
     return (
-        <>
-            <p>Orders</p>
-            {orders && orders.length > 0 && (
-                <div>
-                    {orders.map(order => {
-                        return <OrderComponent key={order.id} order={order} />
-                    })}
-                </div>
-            )}
-        </>
+        <Orders orders={orders} />
     );
 }
 

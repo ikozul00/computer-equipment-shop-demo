@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: var(--color-bright-blue);
+}
+
+.links-container {
+    display: flex;
+    gap: 16px;
+}
+
+.link {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.link:hover {
+    color: var(--color-dark-blue);
+    cursor: pointer;
+}
+
+.user-link {
+    border: none;
+    background-color: var(--color-bright-blue);
+
+}

@@ -1,0 +1,100 @@
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+.order-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.order-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+@media screen and (min-width: 786px) {
+    .order-info {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin: 4px 0;
+    border-radius: 4px;
+    padding: 12px;
+    position: relative;
+}
+
+.order:hover {
+    cursor: pointer;
+    transform: scale(1.005);
+}
+
+.status-container {
+    display: flex;
+    align-items: center;
+}
+
+.status {
+    border-radius: 99px;
+    padding: 4px 8px;
+    margin-left: 4px;
+}
+
+.success {
+    background-color: #98FB98;
+}
+
+.failed {
+    background-color: #FA8072;
+}
+
+.pending {
+    background-color: #FFFF8F;
+}
+
+.dropdown-icon {
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    transform-origin: center;
+    transition: transform .18s ease;
+    padding: 4px;
+    color: #000;
+}
+
+.rotated-up {
+    transform: rotate(90deg);
+}
+
+.rotated-down {
+    transform: rotate(-90deg);
+}
+
+.delet-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 8px;
+    border: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: red;
+    color: #fff;
+}

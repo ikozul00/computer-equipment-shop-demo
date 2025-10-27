@@ -1,0 +1,36 @@
+@import "./variables.css";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+p {
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 24px 12px;
+    align-items: center;
+    gap: 24px;
+}
+
+button {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+}
