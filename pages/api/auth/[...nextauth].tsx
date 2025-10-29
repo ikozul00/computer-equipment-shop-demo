@@ -1,5 +1,9 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
+import NextAuth, { NextAuthOptions, User, Profile as NextAuthProfile } from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
+
+interface Profile extends NextAuthProfile {
+    email_verified?: boolean;
+}
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -10,7 +14,7 @@ export const authOptions: NextAuthOptions = {
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async signIn({ user, profile }) {
+        async signIn({ user, profile }: { user: User, profile?: Profile }) {
             if (!user || !profile || !profile?.email_verified) {
                 return false;
             }
@@ -54,7 +58,7 @@ export const authOptions: NextAuthOptions = {
         },
         async session({ session, token }) {
             if (session?.user && token) {
-                session.user.id = token.userId;
+                session.user.id = token.userId as string;
             }
             return session;
         }

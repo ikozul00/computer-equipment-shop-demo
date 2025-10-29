@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ProductType } from "../../../src/types";
+import { ProductType } from "../../../src/types/types";
 import styles from "./Products.module.css";
 
 const createImagePath = (imagePath: string) => `/images/${imagePath}`;

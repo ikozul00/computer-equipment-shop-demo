@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OrderType } from "../../../src/types"
+import { OrderType } from "../../../src/types/types"
 import styles from "./Orders.module.css";
 import { Products } from "./Products";
 import { Modal } from "../../../src/components/Modal";
