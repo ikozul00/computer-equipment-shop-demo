@@ -25,10 +25,42 @@ const createOrders = (userId) => ([
     {
         data: {
             user: { connect: { id: userId } },
+            status: "pending",
+            orderList: {
+                create: [
+                    { quantity: 1, product: { connect: { id: 1 } } },
+                    { quantity: 2, product: { connect: { id: 3 } } },
+                ],
+            },
+        },
+        include: {
+            orderList: { include: { product: true } },
+            user: true,
+        },
+    },
+    {
+        data: {
+            user: { connect: { id: userId } },
             status: "success",
             orderList: {
                 create: [
                     { quantity: 1, product: { connect: { id: 1 } } },
+                ],
+            },
+        },
+        include: {
+            orderList: { include: { product: true } },
+            user: true,
+        },
+    },
+    {
+        data: {
+            user: { connect: { id: userId } },
+            status: "pending",
+            orderList: {
+                create: [
+                    { quantity: 2, product: { connect: { id: 2 } } },
+                    { quantity: 2, product: { connect: { id: 3 } } },
                 ],
             },
         },

@@ -18,6 +18,20 @@ const getStatusStyle = (status: string) => {
 
 export const OrderComponent = ({ order }: { order: OrderType }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+    const onDeleteOrder = async () => {
+        const data = await fetch(`/api/orders/delete?orderId=${order.id}`, {
+            method: "DELETE",
+        });
+        if (data.ok) {
+            window.location.reload();
+        } else {
+            const errorData = await data.json();
+            setErrorMessage(errorData.error || "Failed to delete order");
+        }
+    }
+
     return (
         <div className={styles.order}>
             <div className={styles["order-data"]} onClick={() => setIsOpen(!isOpen)}>
@@ -38,7 +52,12 @@ export const OrderComponent = ({ order }: { order: OrderType }) => {
             {isOpen && (
                 <Products products={order.products} />
             )}
-            {isOpen && <button className={styles["delet-btn"]}>Delete</button>}
+            {isOpen && errorMessage && (
+                <p>{errorMessage}</p>
+            )}
+            {isOpen && order.status === "pending" && (
+                <button className={styles["delete-btn"]} onClick={onDeleteOrder}>Delete</button>
+            )}
         </div>
     )
 }
