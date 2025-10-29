@@ -2,6 +2,7 @@ import { useState } from "react";
 import { OrderType } from "../../../src/types"
 import styles from "./Orders.module.css";
 import { Products } from "./Products";
+import { Modal } from "../../../src/components/Modal";
 
 const getStatusStyle = (status: string) => {
     switch (status) {
@@ -19,12 +20,14 @@ const getStatusStyle = (status: string) => {
 export const OrderComponent = ({ order }: { order: OrderType }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const onDeleteOrder = async () => {
         const data = await fetch(`/api/orders/delete?orderId=${order.id}`, {
             method: "DELETE",
         });
         if (data.ok) {
+            setIsModalOpen(false);
             window.location.reload();
         } else {
             const errorData = await data.json();
@@ -52,12 +55,23 @@ export const OrderComponent = ({ order }: { order: OrderType }) => {
             {isOpen && (
                 <Products products={order.products} />
             )}
-            {isOpen && errorMessage && (
-                <p>{errorMessage}</p>
-            )}
             {isOpen && order.status === "pending" && (
-                <button className={styles["delete-btn"]} onClick={onDeleteOrder}>Delete</button>
+                <button
+                    className={styles["delete-btn"]}
+                    onClick={() => setIsModalOpen(true)}
+                >
+                    Delete
+                </button>
             )}
+
+            <Modal
+                message={`Are you sure you want to delete order with id ${order.id}?`}
+                selectMessage="Delete"
+                errorMessage={errorMessage}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSelect={onDeleteOrder}
+            />
         </div>
     )
 }
