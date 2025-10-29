@@ -2,8 +2,7 @@ import { GetServerSideProps } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { OrderType } from "../../src/types/types";
-import { OrderComponent } from "./components/OrderComponent";
-import { Orders } from "./components/Orders";
+import { Orders } from "../../src/components/orders/Orders";
 
 interface OrdersPageProps {
     orders: OrderType[];

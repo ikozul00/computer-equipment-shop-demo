@@ -1,4 +1,4 @@
-import { OrderType } from "../../../src/types/types"
+import { OrderType } from "../../types/types"
 import { OrderComponent } from "./OrderComponent"
 import styles from "./Orders.module.css";
 

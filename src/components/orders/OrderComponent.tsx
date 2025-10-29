@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { OrderType } from "../../../src/types/types"
+import { OrderType } from "../../types/types"
 import styles from "./Orders.module.css";
-import { Products } from "./Products";
-import { Modal } from "../../../src/components/Modal";
+import { Products } from "../products/Products";
+import { Modal } from "../Modal";
 
 const getStatusStyle = (status: string) => {
     switch (status) {
