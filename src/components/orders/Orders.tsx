@@ -32,7 +32,7 @@ export const Orders = () => {
         }
     }
 
-    const fetchOrders = () => {
+    const fetchOrders = async () => {
         if (!navigator.onLine) {
             const data = localStorage.getItem(`orders_${session.user.id}`);
             if (data) {
@@ -40,7 +40,7 @@ export const Orders = () => {
                 setOrders(ordersData?.orders);
             }
         } else {
-            fetchOnlineOrders();
+            await fetchOnlineOrders();
         }
     }
 
@@ -61,7 +61,7 @@ export const Orders = () => {
 
         window.addEventListener("online", handleOnline);
         return () => window.removeEventListener("online", handleOnline);
-    }, [session?.user, status, router, fetchOrders, fetchOnlineOrders])
+    }, [session?.user, status, router])
 
     return (
         <div className="container">
