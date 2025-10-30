@@ -12,7 +12,7 @@ export const Orders = () => {
     const [error, setError] = useState("");
     const router = useRouter();
 
-    const fetchOrders = async () => {
+    const fetchOnlineOrders = async () => {
         try {
             setIsLoading(true);
             const res = await fetch(`/api/orders/list`);
@@ -32,6 +32,18 @@ export const Orders = () => {
         }
     }
 
+    const fetchOrders = () => {
+        if (!navigator.onLine) {
+            const data = localStorage.getItem(`orders_${session.user.id}`);
+            if (data) {
+                const ordersData = JSON.parse(data);
+                setOrders(ordersData?.orders);
+            }
+        } else {
+            fetchOnlineOrders();
+        }
+    }
+
     useEffect(() => {
         if (status === "unauthenticated") {
             router.push("/");
@@ -41,23 +53,15 @@ export const Orders = () => {
             return;
         }
 
-        if (!navigator.onLine) {
-            const data = localStorage.getItem(`orders_${session.user.id}`);
-            if (data) {
-                const ordersData = JSON.parse(data);
-                setOrders(ordersData?.orders);
-            }
-        } else {
-            fetchOrders();
-        }
+        fetchOrders();
 
         const handleOnline = () => {
-            fetchOrders();
+            fetchOnlineOrders();
         }
 
         window.addEventListener("online", handleOnline);
         return () => window.removeEventListener("online", handleOnline);
-    }, [session?.user, status])
+    }, [session?.user, status, router, fetchOrders, fetchOnlineOrders])
 
     return (
         <div className="container">
