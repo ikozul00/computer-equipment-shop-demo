@@ -11,12 +11,12 @@ type ResponseData = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
     if (req.method !== "GET") {
-        return res.status(405);
+        return res.status(405).json({ error: "Methode not allowed" });
     }
     const session: { user: { email: string, id: number } } = await getServerSession(req, res, authOptions);
 
     if (!session?.user || !session.user.email || !session.user.id) {
-        return res.status(401).json({ orders: [] });
+        return res.status(401).json({ error: "You must be logged in to view orders" });
     }
 
     const userId = session.user.id;
