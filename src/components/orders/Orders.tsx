@@ -37,6 +37,7 @@ export const Orders = () => {
             const data = localStorage.getItem(`orders_${session.user.id}`);
             if (data) {
                 const ordersData = JSON.parse(data);
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setOrders(ordersData?.orders);
             }
         } else {
