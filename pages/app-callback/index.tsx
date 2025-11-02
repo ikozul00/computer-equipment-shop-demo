@@ -9,7 +9,7 @@ const AppCallback = () => {
             setToken(data.token);
         };
         fetchToken();
-    })
+    }, [])
 
     useEffect(() => {
         if (token) {
