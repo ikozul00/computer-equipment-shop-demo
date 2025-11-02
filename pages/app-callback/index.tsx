@@ -8,11 +8,12 @@ const AppCallback = () => {
             const data = await res.json();
             setToken(data.token);
         };
-        window.location.href = "/"
+
         fetchToken();
     }, [])
 
     useEffect(() => {
+        window.location.href = `/orders/${token}`
         console.log(token);
         if (token) {
             window.location.href = `computershop://callback?token=${encodeURIComponent(JSON.stringify(token))}`
