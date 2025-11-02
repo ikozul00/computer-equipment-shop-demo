@@ -6,6 +6,14 @@ export const Homepage = () => {
     const { data: session } = useSession();
     const { user } = session || {};
 
+    const handleLogin = async () => {
+        if (typeof window !== "undefined" && (window as any).Android) {
+            (window as any).Android.openGoogleLogin();
+        } else {
+            await signIn('google')
+        }
+    }
+
     if (user && user.email) {
         return (
             <div className="container">
@@ -18,7 +26,7 @@ export const Homepage = () => {
     return (
         <div className={"container"}>
             <h2>Welcome to computer equpiment shop</h2>
-            <button className={styles['btn']} onClick={async () => await signIn('google')}>
+            <button className={styles['btn']} onClick={handleLogin}>
                 Login
             </button>
         </div>
