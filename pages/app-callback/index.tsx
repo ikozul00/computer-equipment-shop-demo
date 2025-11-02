@@ -8,13 +8,14 @@ const AppCallback = () => {
             const data = await res.json();
             setToken(data.token);
         };
+        window.location.href = "/"
         fetchToken();
     }, [])
 
     useEffect(() => {
         console.log(token);
         if (token) {
-            window.location.href = `computershop://callback`
+            window.location.href = `computershop://callback?token=${encodeURIComponent(JSON.stringify(token))}`
         }
 
     }, [token]);
