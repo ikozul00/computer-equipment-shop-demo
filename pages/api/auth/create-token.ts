@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from "uuid";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./[...nextauth]";
 
-let tokenStore: Record<string, { email: string, id: string }> = {};
 
 export default async function handler(req, res) {
     if (req.method !== "GET") {
@@ -19,19 +18,20 @@ export default async function handler(req, res) {
         email: session.user.email,
         id: tokenId
     }
-    tokenStore[tokenId] = token;
+
+    localStorage.set(tokenId, JSON.stringify(token));
 
     setTimeout(() => {
-        delete tokenStore[tokenId];
+        localStorage.removeItem(tokenId);
     }, 60 * 1000); // expires in 1 min
 
     res.status(200).json({ token });
 }
 
 export function verifyToken(email: string, id: string) {
-    const currentEmail = tokenStore[id]?.email
-    if (email && id && currentEmail == email) {
-        delete tokenStore[id]; // one-time use
+    const token = JSON.parse(localStorage.getItem(id) || "");
+    if (token && token.email == email) {
+        localStorage.removeItem(id);
         return email;
     }
     return null;
