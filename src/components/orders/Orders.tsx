@@ -45,9 +45,13 @@ export const Orders = () => {
     }
 
     useEffect(() => {
+        console.log("useEffect");
+        console.log(session);
+        console.log(status);
         if (status === "unauthenticated") {
             router.push("/");
         }
+        console.log(session);
 
         if (!session?.user?.id) {
             return;
