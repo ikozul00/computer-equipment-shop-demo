@@ -35,7 +35,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const jwtPayload = {
         name: tokenData.user.name,
         email: tokenData.user.email,
-        userId: tokenData.user.id,
         sub: tokenData.user.id,
         iat: Math.floor(Date.now() / 1000),
         exp: Math.floor(Date.now() / 1000) + MAX_AGE,
