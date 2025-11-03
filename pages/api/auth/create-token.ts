@@ -24,14 +24,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({ token: { userId: session.user.id, id: tokenId } });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ error: "Can't create token" });
     }
-
-    setTimeout(async () => {
-        await prisma.tokens.delete({
-            where: {
-                id: tokenId
-            }
-        });
-    }, 24 * 60 * 1000); // expires in 1h
 }
