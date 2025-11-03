@@ -46,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         maxAge: MAX_AGE,
     });
 
-    const cookie = serialize(TOKEN_NAME, token, {
+    const cookie = serialize(TOKEN_NAME, tokenPayload, {
         maxAge: MAX_AGE,
         expires: new Date(Date.now() + MAX_AGE * 1000),
         httpOnly: true,
