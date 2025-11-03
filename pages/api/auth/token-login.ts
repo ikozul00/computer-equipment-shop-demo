@@ -39,7 +39,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         iat: Math.floor(Date.now() / 1000),
         exp: Math.floor(Date.now() / 1000) + MAX_AGE,
     };
-    console.log(jwtPayload);
 
     const tokenPayload = await encode({
         token: jwtPayload,

@@ -33,8 +33,7 @@ export const Orders = () => {
     }
 
     const fetchOrders = async () => {
-        console.log(navigator.onLine);
-        if (!navigator.onLine) {
+        if ((!(window as any).Android && !navigator.onLine) || ((window as any).Android && !(window as any).Android.isOnline())) {
             const data = localStorage.getItem(`orders_${session.user.id}`);
             if (data) {
                 const ordersData = JSON.parse(data);
@@ -46,13 +45,9 @@ export const Orders = () => {
     }
 
     useEffect(() => {
-        console.log("useEffect");
-        console.log(session);
-        console.log(status);
         if (status === "unauthenticated") {
             router.push("/");
         }
-        console.log(session);
 
         if (!session?.user?.id) {
             return;
