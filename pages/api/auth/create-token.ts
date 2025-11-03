@@ -4,6 +4,7 @@ import { authOptions } from "./[...nextauth]";
 import prisma from "../../../lib/prisma";
 
 export default async function handler(req, res) {
+    console.log("Prisma models:", Object.keys(prisma));
     if (req.method !== "GET") {
         return res.status(405).json({ error: "Methode not allowed" });
     }
