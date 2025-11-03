@@ -33,6 +33,7 @@ export const Orders = () => {
     }
 
     const fetchOrders = async () => {
+        console.log(navigator.onLine);
         if (!navigator.onLine) {
             const data = localStorage.getItem(`orders_${session.user.id}`);
             if (data) {
