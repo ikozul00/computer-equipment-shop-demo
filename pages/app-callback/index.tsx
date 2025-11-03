@@ -13,11 +13,8 @@ const AppCallback = () => {
     }, [])
 
     useEffect(() => {
-        console.log(token);
         if (token) {
-            console.log(token);
-            window.location.href = `/orders/${token}`
-            // window.location.href = `computershop://callback?token=${encodeURIComponent(JSON.stringify(token))}`
+            window.location.href = `computershop://callback?token=${encodeURIComponent(JSON.stringify(token))}`
         }
 
     }, [token]);
