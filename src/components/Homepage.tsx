@@ -10,7 +10,7 @@ export const Homepage = () => {
         if (typeof window !== "undefined" && (window as any).Android) {
             (window as any).Android.openGoogleLogin();
         } else {
-            await signIn('google')
+            await signIn('google', { callbackUrl: "/app-callback" })
         }
     }
 
